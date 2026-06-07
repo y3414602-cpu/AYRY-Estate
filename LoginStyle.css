@@ -1,0 +1,312 @@
+/* ================================================
+   Real Estate Auth — Classic Luxury Style
+   Colors: Beige, Brown, Gold, White
+   ================================================ */
+
+/*@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Raleway:wght@300;400;500;600&display=swap');*/
+
+/* ── Variables ── */
+:root {
+  --gold:        #C9A84C;
+  --gold-light:  #E2C87A;
+  --gold-dark:   #A07830;
+  --brown:       #5C3D2E;
+  --brown-light: #8B6347;
+  --beige:       #F5EFE6;
+  --beige-dark:  #E8DDD0;
+  --white:       #FDFAF6;
+  --text-dark:   #2C1A0E;
+  --text-mid:    #6B4C36;
+  --text-light:  #9E7E68;
+  --border:      rgba(201, 168, 76, 0.3);
+  --shadow:      0 8px 40px rgba(92, 61, 46, 0.15);
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Body ── */
+body {
+  font-family: 'Raleway', sans-serif;
+  background-color: var(--beige);
+  background-image:linear-gradient(to top left, #45508b, #1b1f35) ;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dark);
+}
+
+/* ── Auth Container ── */
+.auth-container {
+  width: 100%;
+  max-width: 460px;
+  padding: 1rem;
+}
+
+/* ── Logo / Brand ── */
+.brand {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+/*
+.brand-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 1rem;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  box-shadow: 0 4px 20px rgba(201,168,76,0.4);
+}
+*/
+.brand h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.brand p {
+  font-size: 13px;
+  color:#bdd7ff;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ── Card ── */
+.auth-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 2px 15px #a3b8d7;
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 8px;
+  background-image: linear-gradient(to left,#45508b,#a3b8d7);
+}
+
+/* ── Tab Buttons ── */
+.tab-row {
+  display: flex;
+  background: var(--beige);
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 2rem;
+  border: 1px solid var(--beige-dark);
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #111;
+  transition: all 0.25s ease;
+  letter-spacing: 0.5px;
+}
+
+.tab-btn.active {
+  background: var(--white);
+  color: #111;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(92,61,46,0.12);
+}
+
+/* ── Form Title ── */
+.form-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 0.4rem;
+}
+
+.form-subtitle {
+  font-size: 13px;
+  color: #3a3838;
+  margin-bottom: 1.8rem;
+  font-weight: 300;
+}
+
+/* ── Input Groups ── */
+.input-group {
+  margin-bottom: 1.2rem;
+}
+
+.input-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color:#111;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid var(--beige-dark);
+  border-radius: 10px;
+  background: var(--beige);
+  color: var(--text-dark);
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.input-group input:focus {
+  border-color: var(--gold);
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
+}
+
+.input-group input::placeholder {
+  color: #6e6e6e;
+  font-weight: 300;
+}
+
+.optional-badge {
+  font-size: 10px;
+  color: var(--text-light);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  margin-left: 6px;
+}
+
+/* ── Submit Button ── */
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background-image: linear-gradient(to top left,#45508b,#1b1f35);
+  color: #fff;
+  font-family: 'Raleway', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(92,61,46,0.3);
+}
+
+.submit-btn:hover {
+  background-image: linear-gradient(to left bottom,#45508b,#1b1f35);
+  box-shadow: 0 6px 20px rgba(92,61,46,0.4);
+  transform: translateY(-1px);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(92,61,46,0.3);
+}
+
+/* ── Divider ── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 1.5rem 0;
+}
+
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--beige-dark);
+}
+
+.divider span {
+  font-size: 11px;
+  color: var(--text-light);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ── Error / Success Messages ── */
+.message {
+  margin-top: 1rem;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  display: none;
+}
+
+.message.error {
+  display: block;
+  background: #FDF0EE;
+  color: #8B2E2E;
+  border: 1px solid #F0C4C4;
+}
+
+.message.success {
+  display: block;
+  background: #F0F7EE;
+  color: #2E6B2E;
+  border: 1px solid #C4E0C4;
+}
+
+/* ── Footer text ── */
+.auth-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+.auth-footer a {
+  color: var(--gold-dark);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* ── Decorative corner ── */
+.auth-card::after {
+  content: '◆';
+  position: absolute;
+  bottom: 20px;
+  right: 24px;
+  font-size: 12px;
+  color: var(--border);
+  letter-spacing: 4px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 500px) {
+  .auth-card {
+    padding: 1.8rem 1.4rem;
+  }
+  .brand h1 {
+    font-size: 24px;
+  }
+}

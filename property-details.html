@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Property Details | AYRY Estate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css_fontAwesome/all.css">
+    <link rel="stylesheet" href="HomeStyle.css">
+    <link rel="stylesheet" href="cart-fav-style.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">AYRY</div>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fa-solid fa-house"></i>Home</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-user"></i>About Us</a></li>
+            <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
+            <li><a href="favorites.html"><i class="fa-solid fa-heart"></i>Favorites</a></li>
+            <li><a href="LoginPage.html" class="btn-log"><i class="fa-solid fa-right-to-bracket"></i>Login</a></li>
+        </ul>
+    </nav>
+
+    <div id="property-detail" class="property-detail-container">
+        <div style="text-align: center; padding: 50px;">Loading...</div>
+    </div>
+
+    <div class="line"></div>
+    <footer id="footer">
+        <div class="social">
+            <i class="fa-brands fa-whatsapp"></i>
+            <i class="fa-brands fa-facebook"></i>
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-twitter"></i>
+            <i class="fa-brands fa-tiktok"></i>
+        </div>
+        <p>&copy; 2023 All Rights Reserved</p>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="cart-fav.js"></script>
+    <script>
+        // Get property ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const propertyId = parseInt(urlParams.get('id'));
+        
+        let currentProperty = null;
+
+        function renderPropertyDetails() {
+            const container = document.getElementById('property-detail');
+            if (!currentProperty) {
+                container.innerHTML = '<div class="empty-message"><i class="fa-solid fa-building-circle-exclamation"></i><h3>Property not found!</h3><a href="index.html" class="btn-primary">Back to Home</a></div>';
+                return;
+            }
+
+            const isFav = isFavorite(currentProperty.id);
+            const currentUser = getCurrentUser();
+            const currentUserEmail = currentUser ? currentUser.email : null;
+
+            container.innerHTML = `
+                <div class="property-detail-card">
+                    <img src="${currentProperty.image}" alt="${currentProperty.title}" class="property-detail-image">
+                    <div class="property-detail-info">
+                        <h1 class="property-detail-title">${currentProperty.title}</h1>
+                        <p class="property-detail-location"><i class="fa-solid fa-location-dot"></i> ${currentProperty.governorate} / ${currentProperty.district} / ${currentProperty.area}</p>
+                        <p class="property-detail-price">${currentProperty.price.toLocaleString()} EGP</p>
+                        <div class="property-detail-specs">
+                            <span><i class="fa-solid fa-bed"></i> ${currentProperty.bedrooms} Bedrooms</span>
+                            <span><i class="fa-solid fa-bath"></i> ${currentProperty.bathrooms} Bathrooms</span>
+                            <span><i class="fa-solid fa-arrows-up-down-left-right"></i> ${currentProperty.size} m²</span>
+                            <span><i class="fa-solid fa-calendar"></i> ${currentProperty.year}</span>
+                        </div>
+                        <p class="property-detail-desc">${currentProperty.description}</p>
+                        <p><strong>Category:</strong> ${currentProperty.category} • <strong>Floor:</strong> ${currentProperty.floor}</p>
+                        
+                        <div class="action-buttons">
+                            <button class="btn-primary" onclick="buyProperty()"><i class="fa-solid fa-sack-dollar"></i> Buy Property</button>
+                            <button class="btn-outline" onclick="addToCartAndNotify()"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn-secondary" id="favBtn" onclick="toggleFavorite()">
+                                <i class="fa-solid ${isFav ? 'fa-heart' : 'fa-heart-o'}"></i> ${isFav ? 'Remove from Favorites' : 'Add to Favorites'}
+                            </button>
+                        </div>
+                        
+                        <!-- Make an Offer Section -->
+                        <div class="offers-section">
+                            <h3 class="offers-title"><i class="fa-solid fa-gavel"></i> Make an Offer</h3>
+                            ${currentUserEmail ? `
+                                <div style="margin-bottom: 20px;">
+                                    <input type="number" id="offerPrice" placeholder="Enter your offer price" class="search-input" style="width: 200px; margin-right: 10px;">
+                                    <button class="btn-primary" onclick="submitOffer()">Send Offer</button>
+                                </div>
+                            ` : '<p style="color: #999;">Please <a href="LoginPage.html">login</a> to make an offer.</p>'}
+                            
+                            <h4>Offers on this property:</h4>
+                            <div id="offersList"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            loadOffers();
+        }
+        
+        function loadOffers() {
+            if (!currentProperty) return;
+            const offers = getOffers(currentProperty.id);
+            const offersList = document.getElementById('offersList');
+            const currentUser = getCurrentUser();
+            const currentUserEmail = currentUser ? currentUser.email : null;
+            
+            if (offers.length === 0) {
+                offersList.innerHTML = '<p style="color: #999;">No offers yet. Be the first!</p>';
+                return;
+            }
+            
+            offersList.innerHTML = offers.map(offer => {
+                let statusClass = '';
+                let statusText = '';
+                switch(offer.status) {
+                    case 'pending': statusClass = 'status-pending'; statusText = 'Pending'; break;
+                    case 'accepted': statusClass = 'status-accepted'; statusText = 'Accepted ✓'; break;
+                    case 'rejected': statusClass = 'status-rejected'; statusText = 'Rejected ✗'; break;
+                    case 'countered': statusClass = 'status-countered'; statusText = `Countered: ${offer.counterPrice?.toLocaleString()} EGP`; break;
+                }
+                
+                // Show seller actions for all users (demo purpose) - anyone can respond as seller
+                const showSellerActions = offer.status === 'pending' || offer.status === 'countered';
+                
+                return `
+                    <div class="offer-card">
+                        <div class="offer-price">Offer: ${offer.offerPrice.toLocaleString()} EGP</div>
+                        <div>From: ${offer.buyerEmail}</div>
+                        <div>Status: <span class="offer-status ${statusClass}">${statusText}</span></div>
+                        ${showSellerActions ? `
+                            <div class="offer-actions">
+                                <button onclick="respondToOffer(${offer.id}, 'accepted')" style="background:#28a745; color:white;">Accept</button>
+                                <button onclick="respondToOffer(${offer.id}, 'rejected')" style="background:#dc3545; color:white;">Reject</button>
+                                <button onclick="counterOffer(${offer.id})" style="background:#ffc107; color:#333;">Counter Offer</button>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function submitOffer() {
+            const priceInput = document.getElementById('offerPrice');
+            const offerPrice = parseInt(priceInput.value);
+            if (!offerPrice || offerPrice <= 0) {
+                alert('Please enter a valid price');
+                return;
+            }
+            const currentUser = getCurrentUser();
+            if (!currentUser) {
+                alert('Please login first');
+                window.location.href = 'LoginPage.html';
+                return;
+            }
+            addOffer(currentProperty.id, currentUser.email, offerPrice);
+            priceInput.value = '';
+            loadOffers();
+            alert('Offer sent successfully!');
+        }
+        
+        function respondToOffer(offerId, status) {
+            updateOfferStatus(currentProperty.id, offerId, status);
+            loadOffers();
+            alert(`Offer ${status}!`);
+        }
+        
+        function counterOffer(offerId) {
+            const newPrice = prompt('Enter counter offer price (EGP):');
+            if (newPrice && !isNaN(parseInt(newPrice))) {
+                updateOfferStatus(currentProperty.id, offerId, 'countered', parseInt(newPrice));
+                loadOffers();
+                alert(`Counter offer of ${parseInt(newPrice).toLocaleString()} EGP sent!`);
+            }
+        }
+        
+        function buyProperty() {
+            if (!redirectIfNotLoggedIn()) return;
+            if (confirm(`Are you sure you want to purchase ${currentProperty.title} for ${currentProperty.price.toLocaleString()} EGP?`)) {
+                addPurchase(currentProperty.id, currentProperty.price);
+                alert('🎉 Congratulations! Property purchased successfully!');
+            }
+        }
+        
+        function addToCartAndNotify() {
+            if (addToCart(currentProperty.id)) {
+                alert('Added to cart!');
+            } else {
+                alert('Property already in cart!');
+            }
+        }
+        
+        function toggleFavorite() {
+            if (!redirectIfNotLoggedIn()) return;
+            if (isFavorite(currentProperty.id)) {
+                removeFromFavorites(currentProperty.id);
+                alert('Removed from favorites');
+            } else {
+                addToFavorites(currentProperty.id);
+                alert('Added to favorites');
+            }
+            // Update button UI
+            const favBtn = document.getElementById('favBtn');
+            const isFav = isFavorite(currentProperty.id);
+            favBtn.innerHTML = `<i class="fa-solid ${isFav ? 'fa-heart' : 'fa-heart-o'}"></i> ${isFav ? 'Remove from Favorites' : 'Add to Favorites'}`;
+        }
+        
+        // Load property
+        if (propertyId) {
+            currentProperty = getPropertyById(propertyId);
+        }
+        renderPropertyDetails();
+    </script>
+<script>
+  if (localStorage.getItem("isLoggedIn") === "true") {
+    document.querySelectorAll(".btn-log").forEach(function(loginBtn) {
+      loginBtn.href = "ProfilePage.html";
+      loginBtn.innerHTML = '<i class="fa-solid fa-user"></i>My Account';
+    });
+  }
+</script>
+
+</body>
+</html>

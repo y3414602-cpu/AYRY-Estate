@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Favorites | AYRY Estate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css_fontAwesome/all.css">
+    <link rel="stylesheet" href="HomeStyle.css">
+    <link rel="stylesheet" href="cart-fav-style.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">AYRY</div>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fa-solid fa-house"></i>Home</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-user"></i>About Us</a></li>
+            <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
+            <li><a href="favorites.html"><i class="fa-solid fa-heart"></i>Favorites</a></li>
+            <li><a href="LoginPage.html" class="btn-log"><i class="fa-solid fa-right-to-bracket"></i>Login</a></li>
+        </ul>
+    </nav>
+
+    <div class="property-detail-container">
+        <h1 style="color: white; margin-bottom: 20px;"><i class="fa-solid fa-heart"></i> My Favorites</h1>
+        <div id="favorites-container"></div>
+    </div>
+
+    <div class="line"></div>
+    <footer id="footer">
+        <div class="social">
+            <i class="fa-brands fa-whatsapp"></i>
+            <i class="fa-brands fa-facebook"></i>
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-twitter"></i>
+            <i class="fa-brands fa-tiktok"></i>
+        </div>
+        <p>&copy; 2023 All Rights Reserved</p>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="cart-fav.js"></script>
+    <script>
+        function renderFavorites() {
+            const container = document.getElementById('favorites-container');
+            if (!isLoggedIn()) {
+                container.innerHTML = '<div class="empty-message"><i class="fa-solid fa-lock"></i><h3>Please login to view favorites</h3><a href="LoginPage.html" class="btn-primary">Login</a></div>';
+                return;
+            }
+            
+            const favIds = getFavorites();
+            if (favIds.length === 0) {
+                container.innerHTML = '<div class="empty-message"><i class="fa-solid fa-heart-broken"></i><h3>No favorites yet</h3><a href="index.html" class="btn-primary">Browse Properties</a></div>';
+                return;
+            }
+            
+            const favItems = favIds.map(id => getPropertyById(id)).filter(p => p);
+            
+            let html = '<div class="items-grid">';
+            favItems.forEach(item => {
+                html += `
+                    <div class="favorite-item-card">
+                        <img src="${item.image}" class="favorite-item-img" onclick="goToPropertyDetails(${item.id})" style="cursor:pointer;">
+                        <div class="favorite-item-info">
+                            <div class="favorite-item-title">${item.title}</div>
+                            <div class="favorite-item-price">${item.price.toLocaleString()} EGP</div>
+                            <p class="card-location"><i class="fa-solid fa-location-dot"></i> ${item.governorate} / ${item.district}</p>
+                            <button class="btn-danger" onclick="removeFromFav(${item.id})"><i class="fa-solid fa-trash"></i> Remove</button>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            container.innerHTML = html;
+        }
+        
+        function removeFromFav(propertyId) {
+            removeFromFavorites(propertyId);
+            renderFavorites();
+        }
+        
+        renderFavorites();
+    </script>
+<script>
+  if (localStorage.getItem("isLoggedIn") === "true") {
+    document.querySelectorAll(".btn-log").forEach(function(loginBtn) {
+      loginBtn.href = "ProfilePage.html";
+      loginBtn.innerHTML = '<i class="fa-solid fa-user"></i>My Account';
+    });
+  }
+</script>
+</body>
+</html>

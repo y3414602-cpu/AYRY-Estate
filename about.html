@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Our Team</title>
+        <link rel="stylesheet" href="AboutStyle.css">
+        <link rel="stylesheet" href="css_fontAwesome/all.css" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    </head>
+    <body>
+        
+        <!DOCTYPE html>
+<html>
+    <head>
+        <title>Our Team</title>
+        <link rel="stylesheet" href="AboutStyle.css">
+        <link rel="stylesheet" href="css_fontAwesome/all.css" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <nav>
+            <div class="logo">AYRY</div>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-user"></i> About Us</a></li>
+                <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i> Cart</a></li>
+                <li><a href="favorites.html"><i class="fa-solid fa-heart"></i> Favorites</a></li>
+                <li><a href="LoginPage.html" class="btn-log"><i class="fa-solid fa-right-to-bracket"></i> Login</a></li>
+            </ul>
+        </nav>
+        
+        <header class="title"><h2>Our Team</h2></header>
+        <div class="line"></div>
+
+        <div class="card-box">
+            <div class="team">
+                <img src="image/Ayman.jpeg">
+                <h4>Ayman Kameel</h4>
+                <h5>Front-End developer</h5>
+                <p>He studies at the faculty of <br> Computers and Artificial Intelligence</p>
+                <i class="fa-brands fa-whatsapp"></i>
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-linkedin-in"></i>
+            </div>
+            <div class="team">
+                <img src="image/Youstina.jpeg">
+                <h4>Youstina Medhat</h4>
+                <h5>Front-End developer</h5>
+                <p>she studies at the faculty of <br> Computers and Artificial Intelligence</p>
+                <i class="fa-brands fa-whatsapp"></i>
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-linkedin-in"></i>
+            </div>
+            <div class="team">
+                <img src="image/Youssef.jpeg">
+                <h4>Youssef Mohamed</h4>
+                <h5>Front-End developer</h5>
+                <p>He studies at the faculty of <br> Computers and Artificial Intelligence</p>
+                <i class="fa-brands fa-whatsapp"></i>
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-linkedin-in"></i>
+            </div>
+            <div class="team">
+                <img src="image/Raghad.jpeg">
+                <h4>Raghad Abd El-Nasser</h4>
+                <h5>Front-End developer</h5>
+                <p>she studies at the faculty of <br> Computers and Artificial Intelligence</p>
+                <i class="fa-brands fa-whatsapp"></i>
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-linkedin-in"></i>
+            </div>
+        </div>
+
+    <script>
+  if (localStorage.getItem("isLoggedIn") === "true") {
+    document.querySelectorAll(".btn-log").forEach(function(loginBtn) {
+      loginBtn.href = "ProfilePage.html";
+      loginBtn.innerHTML = '<i class="fa-solid fa-user"></i>My Account';
+    });
+  }
+</script>
+</body>
+</html>

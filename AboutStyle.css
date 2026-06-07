@@ -1,0 +1,157 @@
+*{
+  box-sizing: border-box;
+}
+html{
+  overflow-x: hidden;
+}
+body{
+  background-color: #1b1f35;
+  overflow-x: hidden;
+}
+
+nav{
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 10px 20px; 
+  margin-bottom: 20px;
+}
+.logo{
+  color: #fff; 
+  font-size: 25px;
+}
+
+.nav-links{
+  display: flex; 
+  list-style: none; 
+  gap: 30px; 
+  align-items: center;
+}
+.nav-links a{
+  text-decoration: none; 
+  color: white;
+  transition: 0.5s;
+}
+
+.nav-links a:hover {
+  color: #a3b8d7;
+}
+
+.title{
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 25px;
+}
+
+.line{
+  width: 80%;
+  height: 1px;
+  background-color: #f5ce42;
+  margin: 25px auto;
+}
+
+.card-box{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 60px;
+  margin: 55px 15px 35px 15px;
+}
+
+.team{ 
+  display:block ;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  background-image:linear-gradient(to left top , #667b9b, #323b69);
+  width: 260px;
+  min-height: 355px;
+  border-radius: 15px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 15px #a3b8d7;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.team:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px #a3b8d7;
+}
+img{
+  border-radius: 25px;
+  width: 90%;
+  height: 210px;
+  object-fit: cover;
+  margin-top: 4px;
+}
+.team h4,h5{
+    font-size: 20px;
+    margin:4px auto;
+    color: #fff;
+}
+.team p{
+    color:#f5ce42;
+    margin-top: 8px;
+}
+
+.team i{
+  font-size: 15px;
+  color: #ffffff;
+  margin: 0 5px;
+}
+
+
+@media (max-width: 1200px){
+
+  .card-box{
+    gap: 35px;
+  }
+
+  .team{
+    width: 240px;
+  }
+}
+
+@media (max-width: 768px){
+
+  .title{
+    font-size: 20px;
+  }
+
+  .card-box{
+    gap: 25px;
+  }
+
+  .team{
+    width: 90%;
+    max-width: 320px;
+  }
+
+  img{
+    height: 220px;
+  }
+}
+
+
+@media (max-width: 480px){
+
+  .title{
+    font-size: 18px;
+  }
+
+  .team h4,
+  .team h5{
+    font-size: 18px;
+  }
+
+  .team p{
+    font-size: 14px;
+  }
+
+  .team i{
+    font-size: 18px;
+  }
+}

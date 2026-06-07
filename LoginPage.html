@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+  <title>Prestige Realty — Auth</title>
+  <link rel="stylesheet" href="LoginStyle.css">
+</head>
+<body>
+ 
+  <div class="auth-container">
+ 
+    <div class="brand">
+      <h1>AYRY Estates</h1>
+      <p>Find Your Dream Home </p>
+    </div>
+ 
+    <div class="auth-card">
+ 
+      <div class="tab-row">
+        <button class="tab-btn active" onclick="showLogin()">Login</button>
+        <button class="tab-btn" onclick="showRegister()">Create Account</button>
+      </div>
+ 
+      <!-- LOGIN -->
+      <div id="loginForm">
+        <p class="form-title">Welcome Back</p>
+        <p class="form-subtitle">Sign in to your account</p>
+ 
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" id="loginEmail" placeholder="your@email.com">
+        </div>
+ 
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" id="loginPassword" placeholder="••••••••">
+        </div>
+ 
+        <button class="submit-btn" onclick="login()">Sign In</button>
+      </div>
+ 
+      <!-- REGISTER -->
+      <div id="registerForm" style="display:none;">
+        <p class="form-title">Create Account</p>
+ 
+        <div class="input-group">
+          <label>Name</label>
+          <input type="text" id="name" placeholder="Your full name" >
+        </div>
+ 
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="your@email.com" >
+        </div>
+ 
+        <div class="input-group">
+          <label>Phone</label>
+          <input type="tel" id="phone" placeholder="+20 1XX XXX XXXX" >
+        </div>
+ 
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" id="password" placeholder="••••••••" >
+        </div>
+ 
+        <div class="input-group">
+          <label>Confirm Password</label>
+          <input type="password" id="confirmPassword" placeholder="••••••••">
+        </div>
+ 
+        <button class="submit-btn" onclick="register()">Create Account</button>
+      </div>
+ 
+      <p class="message" id="error"></p>
+ 
+    </div>
+  </div>
+ 
+  <script src="login.js"></script>
+ 
+</body>
+</html>

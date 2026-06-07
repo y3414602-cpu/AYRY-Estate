@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shopping Cart | AYRY Estate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css_fontAwesome/all.css">
+    <link rel="stylesheet" href="HomeStyle.css">
+    <link rel="stylesheet" href="cart-fav-style.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">AYRY</div>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fa-solid fa-house"></i>Home</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-user"></i>About Us</a></li>
+            <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
+            <li><a href="favorites.html"><i class="fa-solid fa-heart"></i>Favorites</a></li>
+            <li><a href="LoginPage.html" class="btn-log"><i class="fa-solid fa-right-to-bracket"></i>Login</a></li>
+        </ul>
+    </nav>
+
+    <div class="property-detail-container">
+        <h1 style="color: white; margin-bottom: 20px;"><i class="fa-solid fa-cart-shopping"></i> My Shopping Cart</h1>
+        <div id="cart-container"></div>
+    </div>
+
+    <div class="line"></div>
+    <footer id="footer">
+        <div class="social">
+            <i class="fa-brands fa-whatsapp"></i>
+            <i class="fa-brands fa-facebook"></i>
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-twitter"></i>
+            <i class="fa-brands fa-tiktok"></i>
+        </div>
+        <p>&copy; 2023 All Rights Reserved</p>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="cart-fav.js"></script>
+    <script>
+        function renderCart() {
+            const container = document.getElementById('cart-container');
+            if (!redirectIfNotLoggedInNoRedirect()) {
+                container.innerHTML = '<div class="empty-message"><i class="fa-solid fa-lock"></i><h3>Please login to view cart</h3><a href="LoginPage.html" class="btn-primary">Login</a></div>';
+                return;
+            }
+            
+            const cartIds = getCart();
+            if (cartIds.length === 0) {
+                container.innerHTML = '<div class="empty-message"><i class="fa-solid fa-cart-shopping"></i><h3>Your cart is empty</h3><a href="index.html" class="btn-primary">Browse Properties</a></div>';
+                return;
+            }
+            
+            const cartItems = cartIds.map(id => getPropertyById(id)).filter(p => p);
+            let total = 0;
+            
+            let html = '<div class="items-grid">';
+            cartItems.forEach(item => {
+                total += item.price;
+                html += `
+                    <div class="cart-item-card">
+                        <img src="${item.image}" class="cart-item-img" onclick="goToPropertyDetails(${item.id})" style="cursor:pointer;">
+                        <div class="cart-item-info">
+                            <div class="cart-item-title">${item.title}</div>
+                            <div class="cart-item-price">${item.price.toLocaleString()} EGP</div>
+                            <p class="card-location"><i class="fa-solid fa-location-dot"></i> ${item.governorate} / ${item.district}</p>
+                            <button class="btn-danger" onclick="removeItemFromCart(${item.id})"><i class="fa-solid fa-trash"></i> Remove</button>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            
+            html += `
+                <div class="cart-summary">
+                    <div class="cart-total">Total: ${total.toLocaleString()} EGP</div>
+                    <button class="btn-primary" onclick="checkout()"><i class="fa-solid fa-credit-card"></i> Proceed to Purchase</button>
+                </div>
+            `;
+            container.innerHTML = html;
+        }
+        
+        function redirectIfNotLoggedInNoRedirect() {
+            return isLoggedIn();
+        }
+        
+        function removeItemFromCart(propertyId) {
+            removeFromCart(propertyId);
+            renderCart();
+        }
+        
+        function checkout() {
+            if (!isLoggedIn()) {
+                alert('Please login first');
+                window.location.href = 'LoginPage.html';
+                return;
+            }
+            const cartIds = getCart();
+            if (cartIds.length === 0) {
+                alert('Cart is empty');
+                return;
+            }
+            if (confirm(`Purchase ${cartIds.length} properties for total ${cartIds.map(id => getPropertyById(id).price).reduce((a,b)=>a+b,0).toLocaleString()} EGP?`)) {
+                cartIds.forEach(id => {
+                    const prop = getPropertyById(id);
+                    addPurchase(id, prop.price);
+                });
+                clearCart();
+                alert('🎉 Purchase completed successfully! Thank you.');
+                renderCart();
+            }
+        }
+        
+        renderCart();
+    </script>
+<script>
+  if (localStorage.getItem("isLoggedIn") === "true") {
+    document.querySelectorAll(".btn-log").forEach(function(loginBtn) {
+      loginBtn.href = "ProfilePage.html";
+      loginBtn.innerHTML = '<i class="fa-solid fa-user"></i>My Account';
+    });
+  }
+</script>
+</body>
+</html>

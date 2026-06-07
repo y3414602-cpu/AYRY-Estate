@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>My Account — AYRY Estates</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="ProfileStyle.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav style="display: flex; justify-content: space-between; align-items: center; padding: 5px 20px; background: transparent;">
+    <div class="logo" style="color: #fff; font-size: 25px;">AYRY</div>
+    <ul class="nav-links" style="display: flex; list-style: none; gap: 30px; align-items: center;">
+        <li><a href="index.html" style="text-decoration: none; color: white;"><i class="fa-solid fa-house"></i>Home</a></li>
+        <li><a href="about.html" style="text-decoration: none; color: white;"><i class="fa-solid fa-user"></i>About Us</a></li>
+        <li><a href="cart.html" style="text-decoration: none; color: white;"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
+        <li><a href="favorites.html" style="text-decoration: none; color: white;"><i class="fa-solid fa-heart"></i>Favorites</a></li>
+        <li><a href="LoginPage.html" class="btn-log" style="text-decoration: none; color: white;"><i class="fa-solid fa-right-to-bracket"></i>Login</a></li>
+    </ul>
+</nav>
+
+  <div class="page">
+
+    <!-- LEFT: Profile Card -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="avatar">🏡</div>
+        <div class="profile-name" id="dispName">—</div>
+        <div class="profile-email" id="dispEmail">—</div>
+      </div>
+
+      <div class="info-list">
+        <div class="info-row">
+          <div class="info-icon"><i class="fa-solid fa-user"></i></div>
+          <div>
+            <div class="info-label">Full Name</div>
+            <div class="info-value" id="infoName">—</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+          <div>
+            <div class="info-label">Email</div>
+            <div class="info-value" id="infoEmail">—</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+          <div>
+            <div class="info-label">Phone</div>
+            <div class="info-value" id="infoPhone">—</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon"><i class="fa-solid fa-calendar"></i></div>
+          <div>
+            <div class="info-label">Member Since</div>
+            <div class="info-value" id="infoJoined">—</div>
+          </div>
+        </div>
+      </div>
+
+
+      <button class="logout-btn" onclick="logout()">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+      </button>
+    </div>
+
+    <!-- RIGHT: Settings -->
+    <div class="settings-col">
+
+      <!-- Personal Info -->
+      <div class="settings-card">
+        <div class="card-head">
+          <div class="card-head-left">
+            <div class="card-head-icon"><i class="fa-solid fa-user-pen"></i></div>
+            <div>
+              <div class="card-head-title">Personal Info</div>
+              <div class="card-head-sub">Name & phone number</div>
+            </div>
+          </div>
+          <button class="edit-toggle" id="toggleInfo" onclick="toggleSection('Info')">
+            <i class="fa-solid fa-pen"></i> Edit
+          </button>
+        </div>
+        <div class="edit-form" id="formInfo">
+          <div class="form-grid">
+            <div class="inp-group">
+              <label>Full Name</label>
+              <input type="text" id="editName" placeholder="Your full name">
+            </div>
+            <div class="inp-group">
+              <label>Phone</label>
+              <input type="tel" id="editPhone" placeholder="+20 1XX XXX XXXX">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn-save" onclick="saveInfo()">Save Changes</button>
+            <button class="btn-cancel" onclick="toggleSection('Info')">Cancel</button>
+          </div>
+          <p class="form-msg" id="msgInfo"></p>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="settings-card">
+        <div class="card-head">
+          <div class="card-head-left">
+            <div class="card-head-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div>
+              <div class="card-head-title">Email Address</div>
+              <div class="card-head-sub">Update your login email</div>
+            </div>
+          </div>
+          <button class="edit-toggle" id="toggleEmail" onclick="toggleSection('Email')">
+            <i class="fa-solid fa-pen"></i> Edit
+          </button>
+        </div>
+        <div class="edit-form" id="formEmail">
+          <div class="form-grid single">
+            <div class="inp-group">
+              <label>New Email</label>
+              <input type="email" id="editEmail" placeholder="new@email.com">
+            </div>
+            <div class="inp-group">
+              <label>Current Password (to confirm)</label>
+              <input type="password" id="emailPass" placeholder="••••••••">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn-save" onclick="saveEmail()">Update Email</button>
+            <button class="btn-cancel" onclick="toggleSection('Email')">Cancel</button>
+          </div>
+          <p class="form-msg" id="msgEmail"></p>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="settings-card">
+        <div class="card-head">
+          <div class="card-head-left">
+            <div class="card-head-icon"><i class="fa-solid fa-lock"></i></div>
+            <div>
+              <div class="card-head-title">Password</div>
+              <div class="card-head-sub">Change your account password</div>
+            </div>
+          </div>
+          <button class="edit-toggle" id="togglePass" onclick="toggleSection('Pass')">
+            <i class="fa-solid fa-pen"></i> Edit
+          </button>
+        </div>
+        <div class="edit-form" id="formPass">
+          <div class="form-grid single">
+            <div class="inp-group">
+              <label>Current Password</label>
+              <input type="password" id="currentPass" placeholder="••••••••">
+            </div>
+            <div class="inp-group">
+              <label>New Password</label>
+              <input type="password" id="newPass" placeholder="••••••••">
+            </div>
+            <div class="inp-group">
+              <label>Confirm New Password</label>
+              <input type="password" id="confirmPass" placeholder="••••••••">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn-save" onclick="savePassword()">Update Password</button>
+            <button class="btn-cancel" onclick="toggleSection('Pass')">Cancel</button>
+          </div>
+          <p class="form-msg" id="msgPass"></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="profile.js"></script>
+<script>
+  if (localStorage.getItem("isLoggedIn") === "true") {
+    document.querySelectorAll(".btn-log").forEach(function(loginBtn) {
+      loginBtn.href = "ProfilePage.html";
+      loginBtn.innerHTML = '<i class="fa-solid fa-user"></i>My Account';
+    });
+  }
+</script>
+
+</body>
+</html>

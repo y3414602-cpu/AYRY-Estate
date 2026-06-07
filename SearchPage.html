@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Search</title>
+    <link rel="stylesheet" href="HomeStyle.css">
+    <link rel="stylesheet" href="SearchStyle.css">
+    <link rel="stylesheet" href="css_fontAwesome/all.css"  />
+</head>
+<body>
+     <nav>
+    <div class="logo">AYRY</div>
+    <ul class="nav-links">
+        <li><a href="index.html"><i class="fa-solid fa-house"></i>Home</a></li>
+        <li><a href="about.html"><i class="fa-solid fa-user"></i>About Us</a></li>
+        <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
+        <li><a href="favorites.html"><i class="fa-solid fa-heart"></i>Favorites</a></li>
+        <li><a href="LoginPage.html" class="btn-log"><i class="fa-solid fa-right-to-bracket"></i>Login</a></li>
+    </ul>
+    </nav>
+ 
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- MAIN CONTAINER -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<main class="container">
+   
+    <div class="wrapper">
+        
+        <!-- ════════════════════════════════════════════════════ -->
+        <!-- FILTERS SECTION -->
+        <!-- ════════════════════════════════════════════════════ -->
+        <aside class="filters-sidebar">
+            <h2 class="filters-title"><i class="fa-brands fa-sistrix"></i> Search & Filters</h2>
+ 
+            <!-- ─────────────────────────────────────────────── -->
+            <!-- 1. Autocomplete Search -->
+            <!-- ─────────────────────────────────────────────── -->
+            <div class="filter-group">
+                <label class="filter-label"><i class="fa-solid fa-map-location-dot"></i> Search Property Address</label>
+                <div class="search-wrapper">
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        class="search-input" 
+                        placeholder="Search...."
+                        autocomplete="off"
+                    >
+                    <div id="autocomplete-suggestions" class="autocomplete-suggestions"></div>
+                </div>
+            </div>
+ 
+            <!-- ─────────────────────────────────────────────── -->
+            <!-- 2. Category Filter -->
+            <!-- ─────────────────────────────────────────────── -->
+            <div class="filter-group">
+                <label class="filter-label"><i class="fa-solid fa-city"></i> Property Type </label>
+                <div class="category-buttons">
+                    <button class="category-btn" data-filter="category" data-category="Apartment">Apartment</button>
+                    <button class="category-btn" data-filter="category" data-category="Villa">Villa</button>
+                    <button class="category-btn" data-filter="category" data-category="Studio">Studio</button>
+                    <button class="category-btn" data-filter="category" data-category="Penthouse">Penthouse</button>
+                    <button class="category-btn" data-filter="category" data-category="Duplex">Duplex</button>
+                    <button class="category-btn" data-filter="category" data-category="Building">Building</button>
+                    <button class="category-btn" data-filter="category" data-category="Chalet">Chalet</button>
+                </div>
+            </div>
+ 
+            <!-- ─────────────────────────────────────────────── -->
+            <!-- 3. Bedrooms Filter -->
+            <!-- ─────────────────────────────────────────────── -->
+            <div class="filter-group">
+                <label class="filter-label"><i class="fa-solid fa-bed"></i> Number Of Bedrooms </label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" data-filter="bedrooms" value="1"> 1 bedroom
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" data-filter="bedrooms" value="2"> 2 bedroom
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" data-filter="bedrooms" value="3"> 3 bedrooms
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" data-filter="bedrooms" value="4"> 4 bedrooms
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" data-filter="bedrooms" value="5"> 5 bedrooms and more 
+                    </label>
+                </div>
+            </div>
+ 
+            <!-- ─────────────────────────────────────────────── -->
+            <!-- 4. Bathrooms Filter -->
+            <!-- ─────────────────────────────────────────────── -->
+            <div class="filter-group">
+                <label class="filter-label"><i class="fa-solid fa-shower"></i> Number Of Bathrooms </label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" data-filter="bathrooms" value="1"> 1 bathroom
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" data-filter="bathrooms" value="2"> 2 bathroom
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" data-filter="bathrooms" value="3"> 3 bathrooms
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" data-filter="bathrooms" value="4"> 4  bathrooms and more
+                    </label>
+                </div>
+            </div>
+ 
+            <!-- ─────────────────────────────────────────────── -->
+            <!-- 5. Price Filter (Slider) -->
+            <!-- ─────────────────────────────────────────────── -->
+            <div class="filter-group">
+                <label class="filter-label"><i class="fa-solid fa-sack-dollar"></i> Maximum Price</label>
+                <div class="price-filter">
+                    <input type="range" id="price-slider" min="0" max="30000000" value="30000000" class="price-slider">
+                    <div class="price-display">
+                        <span id="price-display">30,000,000 EGP</span>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- ─────────────────────────────────────────────── -->
+            <!-- Reset Button -->
+            <!-- ─────────────────────────────────────────────── -->
+            <button onclick="resetAllFilters()" class="btn-reset">
+                <i class="fa-solid fa-trash-can"></i> Delete all filter
+            </button>
+        </aside>
+ 
+        <!-- ════════════════════════════════════════════════════ -->
+        <!-- RESULTS SECTION -->
+        <!-- ════════════════════════════════════════════════════ -->
+        <section class="results-section">
+            
+            <!-- No Results Message -->
+            <div id="no-results-message" class="no-results-message" style="display: none;"></div>
+ 
+            <!-- Properties Grid -->
+            <div id="properties-container" class="properties-grid"></div>
+        </section>
+ 
+    </div>
+</main>
+ 
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<footer class="footer">
+    <p>&copy; 2023 All Rights Reserved</p>
+</footer>
+ 
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- SCRIPTS -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<script src="data.js"></script>
+<script src="cart-fav.js"></script>
+<script src="search-filter.js"></script>
+ 
+<script>
+  if (localStorage.getItem("isLoggedIn") === "true") {
+    document.querySelectorAll(".btn-log").forEach(function(loginBtn) {
+      loginBtn.href = "ProfilePage.html";
+      loginBtn.innerHTML = '<i class="fa-solid fa-user"></i>My Account';
+    });
+  }
+</script>
+
+</body>
+</html>

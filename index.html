@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AYRY Estate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AYRY Estate | Find Your Dream Home</title>
+    <meta name="description"
+        content="AYRY Estate helps you find apartments, villas, studios, and properties across Egypt at the best prices.">
+    <meta name="keywords" content="Real Estate, Egypt, Apartments, Villas, Property, Homes, AYRY Estate">
+    <meta name="author" content="AYRY Team">
+    <link rel="stylesheet" href="css_fontAwesome/all.css" />
+    <link rel="stylesheet" href="HomeStyle.css" />
+</head>
+
+<body>
+    <nav>
+        <div class="logo">AYRY</div>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fa-solid fa-house"></i>Home</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-user"></i>About Us</a></li>
+            <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
+            <li><a href="favorites.html"><i class="fa-solid fa-heart"></i>Favorites</a></li>
+            <li><a href="#footer"><i class="fa-solid fa-phone"></i>Contact Us</a></li>
+            <li><a href="LoginPage.html" class="btn-log"><i class="fa-solid fa-right-to-bracket"></i>Login</a></li>
+        </ul>
+    </nav>
+    <section class="hero">
+        <div class="text">
+            <h2>Your Home</h2>
+            <h1> Start Here!</h1>
+            <h5>find the perfect property in Egypt</h5>
+            <a href="SearchPage.html" class="search-bar">
+                <i class="fa-brands fa-sistrix"></i>
+                <span class="search-placeholder"> Search...</span>
+            </a>
+            <div class="show">
+                <span>Show Some Properties </span>
+                <a href="#card-continer" class="show-btn">Show</a>
+
+            </div>
+        </div>
+        <img src="image/background.jpeg">
+    </section>
+
+    <div id="card-continer"></div>
+
+    <div class="line"></div>
+
+    <div class="choose-us">
+        <div class="heading">
+            <h1>Why Choose Us</h1>
+            <h3>Finding Your Dream Home</h3>
+            <h4>Has Never Been Easier</h4>
+            <p>
+                we offer the best properties with the best price and top-notch <br>
+                customer service to make your experience smooth and happy.
+            </p>
+        </div>
+        <div class="box-continer">
+            <div class="box">
+                <i class="fa-solid fa-house"></i>
+                <h5>Wide Range Of Properties</h5>
+                <p>
+                    Apartments, Villas, Studios<br>
+                    and Building in top location.
+                </p>
+            </div>
+
+            <div class="box">
+                <i class="fa-solid fa-sack-dollar"></i>
+                <h5>Best Prices Guaranteed</h5>
+                <p>
+                    Competitive prices with<br>
+                    flexible payment options.
+                </p>
+            </div>
+
+            <div class="box">
+                <i class="fa-solid fa-location-dot"></i>
+                <h5>Prime Location</h5>
+                <p>
+                    Properties in the best<br>
+                    areas across different cities.
+                </p>
+            </div>
+
+            <div class="box">
+                <i class="fa-solid fa-people-line"></i>
+                <h5>Trusted By Hundreds</h5>
+                <p>
+                    Helping clients find their<br>
+                    perfect home with confidence.
+                </p>
+            </div>
+        </div>
+        <div class="about">
+            <div class="about-item">
+                <i class="fa-solid fa-house"></i>
+                <span>500+ Properties</span>
+            </div>
+            <div class="about-item">
+                <i class="fa-solid fa-users"></i>
+                <span>200+ Happy Clients</span>
+            </div>
+            <div class="about-item">
+                <i class="fa-solid fa-city"></i>
+                <span>15+ Cities</span>
+            </div>
+            <div class="about-item">
+                <i class="fa-solid fa-trophy"></i>
+                <span>10+ Years Experience</span>
+            </div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <footer id="footer">
+        <div class="social">
+            <i class="fa-brands fa-whatsapp"></i>
+            <i class="fa-brands fa-facebook"></i>
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-twitter"></i>
+            <i class="fa-brands fa-tiktok"></i>
+        </div>
+        <p>&copy; 2023 All Rights Reserved</p>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="cart-fav.js"></script>
+    <script>
+        // Get container and clear it completely (removes any old cards)
+        const container = document.getElementById("card-continer");
+        container.innerHTML = '';
+
+        const shownDistricts = [];
+
+        // Generate cards – same as before but without inline onclick
+        properties.slice(0, 11).forEach(function (property) {
+            if (!shownDistricts.includes(property.district)) {
+                shownDistricts.push(property.district);
+                container.innerHTML += `
+                    <div class="card" data-id="${property.id}" style="cursor:pointer;">
+                        <img src="${property.image}" alt="${property.title}" class="card-image">
+                        <div class="card-content">
+                            <h3 class="card-title">${property.title}</h3>
+                            <p class="card-location">
+                                <i class="fa-solid fa-location-dot"></i> ${property.governorate} / ${property.district} / ${property.area}
+                            </p>
+                            <p class="card-price">
+                                <i class="fa-solid fa-sack-dollar"></i> ${property.price.toLocaleString()} EGP
+                            </p>
+                            <div class="card-specs">
+                                <span><i class="fa-solid fa-bed"></i> ${property.bedrooms} room</span>
+                                <span><i class="fa-solid fa-bath"></i> ${property.bathrooms} bathroom</span>
+                                <span><i class="fa-solid fa-arrows-up-down-left-right"></i> ${property.size} m²</span>
+                            </div>
+                            <p class="card-category">
+                                ${property.category} • ${property.year} year
+                            </p>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+
+
+        // Event delegation: one listener that works for all current and future cards
+        container.addEventListener('click', function (e) {
+            let target = e.target;
+            // Find the closest ancestor with class "card"
+            while (target && !target.classList.contains('card')) {
+                target = target.parentElement;
+            }
+            if (target && target.classList.contains('card')) {
+                const propertyId = target.getAttribute('data-id');
+                if (propertyId) {
+                    window.location.href = `property-details.html?id=${propertyId}`;
+                }
+            }
+        });
+    </script>
+
+<script>
+  if (localStorage.getItem("isLoggedIn") === "true") {
+    document.querySelectorAll(".btn-log").forEach(function(loginBtn) {
+      loginBtn.href = "ProfilePage.html";
+      loginBtn.innerHTML = '<i class="fa-solid fa-user"></i>My Account';
+    });
+  }
+</script>
+
+</body>
+
+</html>
