@@ -50,9 +50,14 @@ function register() {
     return;
   }
 
-  let phonePattern = /^[0-9]*$/;
+  let phonePattern = /^01[0125][0-9]{8}$/;
   if (phone && !phonePattern.test(phone)) {
-    showMsg("Phone must contain numbers only", "error");
+    showMsg("Please enter a valid Egyptian phone number (11 digits)", "error");
+    return;
+  }
+
+  if (!/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$/.test(password)) {
+    showMsg("Password must be at least 8 characters and include letters and numbers", "error");
     return;
   }
 
