@@ -184,6 +184,7 @@
         }
         
         function addToCartAndNotify() {
+            if (!redirectIfNotLoggedIn()) return;
             if (addToCart(currentProperty.id)) {
                 alert('Added to cart!');
             } else {
